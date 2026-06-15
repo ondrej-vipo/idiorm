@@ -692,5 +692,13 @@ class QueryBuilderTest extends PHPUnit_Framework_TestCase {
         $expected = "SELECT * FROM `sqlite_master` LIMIT 1";
         $this->assertEquals($expected, ORM::get_last_query());
     }
+
+    public function testIssue374LoggingWithNullValue() {
+        $widget = ORM::for_table('widget')->find_one(1);
+        $widget->age = NULL;
+        $widget->save();
+        $expected = "UPDATE `widget` SET `age` = NULL WHERE `id` = '1'";
+        $this->assertEquals($expected, ORM::get_last_query());
+    }
 }
 

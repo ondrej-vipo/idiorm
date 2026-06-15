@@ -33,7 +33,7 @@ class MockPDOStatement extends PDOStatement {
            }
            $count = count($m);
            for ($i = 0; $i < $count; $i++) {
-               if (!isset($params[$i])) {
+               if (!array_key_exists($i, $params)) {
                    ob_start();
                    var_dump($m, $params);
                    $output = ob_get_clean();
